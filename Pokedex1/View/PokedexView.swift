@@ -19,9 +19,14 @@ struct PokedexView: View {
                 if showTwoGrid {
                     LazyVGrid(columns: twoGrid) {
                         ForEach(viewModel.pokemons) { pokemon in
-                            PokemonCell(pokemon: pokemon, viewModel: viewModel)
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 8)
+                            NavigationLink {
+                                PokemonDetailsView(pokemon: pokemon, viewModel: viewModel)
+                            } label: {
+                                PokemonCell(pokemon: pokemon, viewModel: viewModel)
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 8)
+                            }
+
                         }
                     }
                     .padding(16)

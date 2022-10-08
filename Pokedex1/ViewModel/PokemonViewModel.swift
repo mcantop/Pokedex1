@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-class PokemonViewModel: ObservableObject {
+final class PokemonViewModel: ObservableObject {
     @Published var pokemons = [Pokemon]()
     
-    let url = "https://pokedex-bb36f.firebaseio.com/pokemon.json"
+    private let url = "https://pokedex-bb36f.firebaseio.com/pokemon.json"
     
     init() {
         fetchData()
