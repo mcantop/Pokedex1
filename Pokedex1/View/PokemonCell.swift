@@ -30,6 +30,7 @@ struct PokemonCell: View {
                     KFImage(URL(string: pokemon.imageURL))
                         .placeholder({
                             ProgressView()
+                                .foregroundColor(Color("TextColor"))
                         })
                         .resizable()
                         .scaledToFit()
@@ -57,6 +58,7 @@ struct PokemonCell: View {
                     KFImage(URL(string: pokemon.imageURL))
                         .placeholder({
                             ProgressView()
+                                .foregroundColor(Color("TextColor"))
                         })
                         .resizable()
                         .scaledToFit()
