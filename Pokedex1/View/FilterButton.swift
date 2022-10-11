@@ -8,13 +8,25 @@
 import SwiftUI
 
 struct FilterButton: View {
+    var imageName: String
+    var height: CGFloat = 24
+    var width: CGFloat = 24
+    var backgroundColor: Color = .purple
+    @Binding var show: Bool
+    
+    var action: () -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+        Button { action() } label: {
+            Image(imageName)
+                .resizable()
+                .frame(width: width, height: height)
+                .padding(16)
+        }
+        .background(backgroundColor)
+        .foregroundColor(.white)
+        .clipShape(Circle())
+        .shadow(color: .black.opacity(0.75), radius: 30, x: 0.0, y: 0.0)
 
-struct FilterButton_Previews: PreviewProvider {
-    static var previews: some View {
-        FilterButton()
     }
 }

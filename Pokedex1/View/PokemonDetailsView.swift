@@ -10,14 +10,19 @@ import Kingfisher
 
 struct PokemonDetailsView: View {
     let pokemon: Pokemon
-    let viewModel: PokemonViewModel
+    let viewModel: PokemonCellViewModel
+    
+    init(pokemon: Pokemon) {
+        self.pokemon = pokemon
+        self.viewModel = PokemonCellViewModel(pokemon: pokemon)
+    }
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [viewModel.pokemonBackgroundColor(forType: pokemon.type), .white]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [viewModel.backgroundColor, Color("TextColor")]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             
-            Color.white.offset(y: 300)
+            Color("TextColor").offset(y: 300)
             
             ScrollView {
                 KFImage(URL(string: pokemon.imageURL))
@@ -29,9 +34,13 @@ struct PokemonDetailsView: View {
                     .frame(width: 200, height: 200)
                 
                 VStack(spacing: 10) {
-                    Text(pokemon.name.capitalized)
-                        .font(.largeTitle)
-                        .padding(.top, 30)
+                    HStack {
+                        Text("#\(pokemon.id)")
+
+                        Text(pokemon.name.capitalized)
+                            .font(.largeTitle)
+                    }
+                    .padding(.top, 30)
                     
                     Text(pokemon.type.capitalized)
                         .font(.subheadline)
@@ -39,7 +48,7 @@ struct PokemonDetailsView: View {
                         .foregroundColor(Color("TextColor"))
                         .padding(.vertical, 8)
                         .padding(.horizontal, 16)
-                        .background(viewModel.pokemonBackgroundColor(forType: pokemon.type))
+                        .background(viewModel.backgroundColor)
                         .cornerRadius(16)
                     
                     VStack(alignment: .leading, spacing: 16) {
@@ -62,7 +71,7 @@ struct PokemonDetailsView: View {
                                     ForEach(evolutionChain) { evolvPokemon in
                                         HStack {
                                             Image(systemName: "arrow.forward.circle.fill")
-                                                .foregroundColor(viewModel.pokemonBackgroundColor(forType: pokemon.type))
+                                                .foregroundColor(viewModel.backgroundColor)
                                             Text("\(evolvPokemon.name.capitalized)")
                                         }
                                     }
@@ -82,14 +91,14 @@ struct PokemonDetailsView: View {
                     .padding(.horizontal, 16)
                 }
                 .frame(maxWidth: .infinity)
-                .background(.white)
+                .background(Color("TextColor"))
                 .cornerRadius(40)
                 .padding(.top, -40)
                 .zIndex(-1)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .accentColor(.white)
+        .accentColor(Color("TextColor"))
         .toolbarBackground(.hidden, for: .navigationBar)
     }
 }
@@ -100,6 +109,6 @@ struct PokemonDetailsView_Previews: PreviewProvider {
                               evolutionChain: [EvolutionChain(id: "2", name: "ivysaur"),
                                                EvolutionChain(id: "3", name: "venusaur")], height: 7, weight: 69)
         
-        PokemonDetailsView(pokemon: pokemon, viewModel: PokemonViewModel())
+        PokemonDetailsView(pokemon: pokemon)
     }
 }

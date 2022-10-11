@@ -9,6 +9,7 @@ import SwiftUI
 
 final class PokemonViewModel: ObservableObject {
     @Published var pokemons = [Pokemon]()
+    @Published var filteredPokemons = [Pokemon]()
     
     private let url = "https://pokedex-bb36f.firebaseio.com/pokemon.json"
     
@@ -31,19 +32,8 @@ final class PokemonViewModel: ObservableObject {
         .resume()
     }
     
-    func pokemonBackgroundColor(forType type: String) -> Color {
-        switch type {
-        case "fire": return .red
-        case "poison": return .green
-        case "water": return .teal
-        case "electric": return .yellow
-        case "psychic": return .purple
-        case "normal": return .orange
-        case "ground": return .gray
-        case "flying": return .blue
-        case "fairy": return .pink
-        default: return .indigo
-        }
+    func filterPokemon(by filter: String) {
+        filteredPokemons = pokemons.filter { $0.type == filter }
     }
 }
 
