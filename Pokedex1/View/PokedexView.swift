@@ -80,7 +80,7 @@ struct PokedexView: View {
                     
                     let imageName = filterApplied ? "refresh" : "filter"
                     FilterButton(imageName: imageName, height: 36, width: 36, show: $showFilterButtons) {
-                        filterApplied ? (filterApplied = false) : (showFilterButtons = true)
+                        filterApplied ? filterApplied.toggle() : showFilterButtons.toggle()
                     }
                     .rotationEffect(.init(degrees: self.showFilterButtons ? 180 : 0))
                 }
